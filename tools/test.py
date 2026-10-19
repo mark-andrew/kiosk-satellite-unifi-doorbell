@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import struct
 from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,11 @@ def run(*args):
     subprocess.run(list(args), check=True, cwd=ROOT)
 
 manifest = json.loads((ROOT / 'kiosk-satellite-plugin.json').read_text())
+assert manifest['author'] == 'mark-andrew'
+assert manifest['icon'] == 'icon.png', 'Icon paths are relative to assets/'
+icon = (ROOT / 'assets' / manifest['icon']).read_bytes()
+assert icon[:8] == b'\x89PNG\r\n\x1a\n' and icon[12:16] == b'IHDR'
+assert struct.unpack('>II', icon[16:24]) == (256, 256) and len(icon) <= 256 * 1024
 keys = set()
 for setting in manifest['settings']:
     assert setting['key'] not in keys
