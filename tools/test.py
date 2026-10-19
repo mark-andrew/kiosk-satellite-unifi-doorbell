@@ -18,7 +18,7 @@ def run(*args):
     subprocess.run(list(args), check=True, cwd=ROOT)
 
 manifest = json.loads((ROOT / 'kiosk-satellite-plugin.json').read_text())
-assert manifest['author'] == 'mark-andrew'
+assert manifest['author'] == 'Mark Andrew'
 assert manifest['icon'] == 'icon.png', 'Icon paths are relative to assets/'
 icon = (ROOT / 'assets' / manifest['icon']).read_bytes()
 assert icon[:8] == b'\x89PNG\r\n\x1a\n' and icon[12:16] == b'IHDR'

@@ -7,7 +7,7 @@
   "minAndroidSdk": 26,
   "entryClass": "net.protectsatellite.ProtectPlugin",
   "description": "Live UniFi Protect doorbell video, listening and two-way audio. Includes guided setup and optional Home Assistant door-lock control. No restreamer required.",
-  "author": "mark-andrew",
+  "author": "Mark Andrew",
   "icon": "icon.png",
   "license": "Apache-2.0",
   "capabilities": ["overlay", "host.read", "ha"],

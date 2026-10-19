@@ -30,8 +30,15 @@ device-tested**. Ordinary and unidentified cameras are excluded.
 
 ## Install and update
 
-Repository installation requires this repository to be public and have a stable
-GitHub Actions-built release. Until then, use a local ZIP for developer testing.
+### Community Plugins (Recommended)
+
+UniFi Protect Doorbell is available in [Community Plugins](https://kiosksatellite.com/plugins/).
+
+[![Install in Kiosk Satellite](https://kiosksatellite.com/img/badges/plugin-add.svg)](https://kiosksatellite.com/redirect/plugin/?repository=mark-andrew/kiosk-satellite-unifi-doorbell)
+
+Or search for **UniFi Protect Doorbell** under **Settings > Plugin Manager > Browse plugins**.
+
+### Manual repository installation
 
 1. In Kiosk Satellite, open **Settings > Plugin Manager** and turn on **Enable Plugins**.
 2. Choose **Add plugin**, paste `https://github.com/mark-andrew/kiosk-satellite-unifi-doorbell`
