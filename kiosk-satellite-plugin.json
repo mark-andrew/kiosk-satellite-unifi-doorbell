@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "apiVersion": 1,
+  "id": "protect-camera",
+  "name": "UniFi Protect Doorbell",
+  "version": "1.0.0",
+  "minAndroidSdk": 26,
+  "entryClass": "net.protectsatellite.ProtectPlugin",
+  "description": "Live UniFi Protect doorbell video, listening and two-way audio. Includes guided setup and optional Home Assistant door-lock control. No restreamer required.",
+  "author": "Protect Satellite contributors",
+  "license": "Apache-2.0",
+  "capabilities": ["overlay", "host.read", "ha"],
+  "commands": [
+    {"id": "show", "title": "Open Protect doorbell"}
+  ],
+  "buttons": [
+    {"id": "validateConnection", "title": "Connect to Protect", "label": "Validate", "group": "Connection", "description": "Check the connection and find UniFi doorbells. Does not start video or the microphone."}
+  ],
+  "settings": [
+    {"key": "console", "type": "string", "title": "Console hostname or IP", "default": "", "group": "Connection", "description": "For example console.example.com or 192.168.1.1. Add :port if needed; HTTPS is automatic."},
+    {"key": "apiKey", "type": "secret", "title": "Protect API key", "default": "", "group": "Connection", "description": "Create a separate key in UniFi Protect. Never share it in screenshots or bug reports."},
+    {"key": "connectionState", "type": "string", "choices": "plugin", "title": "Connection status", "default": "unvalidated", "group": "Connection", "description": "Updated by validation. Validate again after changing the connection."},
+    {"key": "cameraId", "type": "string", "choices": "plugin", "title": "Doorbell", "default": "", "group": "Doorbell", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Choose a doorbell, then Refresh the stream picker."},
+    {"key": "cameraAddress", "type": "string", "title": "Saved talkback address", "default": "", "group": "Advanced", "visibleWhen": {"key": "connectionState", "equals": "internal"}},
+    {"key": "quality", "type": "string", "choices": "plugin", "title": "Enabled stream", "default": "medium", "group": "Doorbell", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Only existing enabled streams are listed. Quality never changes automatically."},
+    {"key": "sizing", "type": "select", "title": "Image sizing", "default": "Stretch", "options": ["Fit", "Fill", "Stretch"], "group": "Display", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Fit shows the whole picture; Fill crops to the screen; Stretch fills without preserving proportions."},
+    {"key": "viewport", "type": "select", "title": "Viewport aspect", "default": "Auto", "options": ["Auto", "4:3", "16:9", "16:10"], "group": "Display", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Auto uses the full screen. Other values constrain the viewing area."},
+    {"key": "horizontal", "type": "number", "title": "Horizontal crop position", "default": 50, "min": 0, "max": 100, "step": 1, "group": "Display", "visibleWhen": {"key": "sizing", "equals": "Fill"}},
+    {"key": "vertical", "type": "number", "title": "Vertical crop position", "default": 50, "min": 0, "max": 100, "step": 1, "group": "Display", "visibleWhen": {"key": "sizing", "equals": "Fill"}},
+    {"key": "controls", "type": "select", "title": "Control placement", "default": "Top", "options": ["Top", "Bottom", "Left", "Right"], "group": "Display", "visibleWhen": {"key": "connectionState", "equals": "validated"}},
+    {"key": "autoClose", "type": "select", "title": "Auto-close after inactivity", "default": "1 minute", "options": ["Off", "30 seconds", "1 minute", "2 minutes", "5 minutes", "10 minutes"], "group": "Display", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Controls reset the timer. Talk suspends auto-close; a fresh timeout starts once transmission has stopped. Off keeps the viewer open."},
+    {"key": "controlSize", "type": "number", "title": "Control size (dp)", "default": 56, "min": 48, "max": 96, "step": 4, "group": "Display", "visibleWhen": {"key": "connectionState", "equals": "validated"}},
+    {"key": "startMuted", "type": "boolean", "title": "Start with listening muted", "default": true, "group": "Audio", "visibleWhen": {"key": "connectionState", "equals": "validated"}},
+    {"key": "muteWhileTalking", "type": "boolean", "title": "Mute listening while talking", "default": true, "group": "Audio", "visibleWhen": {"key": "connectionState", "equals": "validated"}},
+    {"key": "talkEnabled", "type": "boolean", "title": "Enable two-way audio", "default": false, "group": "Audio", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Tap the microphone to start/stop. Green is off; red is starting, live or stopping. Close, backgrounding, stream failure and microphone auto-off stop transmission."},
+    {"key": "talkLimit", "type": "number", "title": "Microphone auto-off (seconds)", "default": 20, "min": 5, "max": 60, "step": 5, "group": "Advanced", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Maximum Talk duration, including connection time."},
+    {"key": "lockEntity", "type": "entity", "domain": "lock", "title": "Door lock (optional)", "default": "", "group": "Home Assistant", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Green locked, red unlocked. Tap toggles without confirmation. Unknown/unavailable is hidden. Uses this kiosk's HA connection; blank disables."},
+    {"key": "certificatePin", "type": "string", "title": "API certificate SHA-256 (optional)", "default": "", "group": "Advanced", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Managed by certificate acceptance. Blank uses Android TLS trust."},
+    {"key": "certificatePinConsole", "type": "string", "title": "Certificate approval console", "default": "", "group": "Advanced", "visibleWhen": {"key": "connectionState", "equals": "validated"}, "description": "Managed by setup. Changing the console clears approval."}
+  ]
+}

@@ -1,0 +1,17 @@
+build/
+dist/
+__pycache__/
+*.class
+*.log
+*.zip
+*.jar
+*.dex
+*.pyc
+*.p12
+*.jks
+*.keystore
+*.pem
+*.key
+.env
+.env.*
+.DS_Store
