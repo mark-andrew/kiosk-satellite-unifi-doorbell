@@ -158,7 +158,9 @@ action if needed. The plugin does not create automations or change dashboards.
 - One selected doorbell per satellite. H.264/H.265 video and AAC-LC listening are
   supported within device capabilities. Talk uses negotiated AAC/UDP or Opus/RTP.
   Unsupported codecs or stream formats fail explicitly. There is no transcoding,
-  SRTP support or automatic reconnection.
+  SRTP support or automatic reconnection. Opus talkback needs an Opus encoder,
+  which stock Android only provides from Android 10; older devices report that
+  limitation instead of connecting.
 - High-quality streams may exceed the device's decoder capabilities. Software
   fallback may be slow; selecting medium or low quality may be necessary.
 - Simultaneous microphone use by KS voice features or other apps can conflict.

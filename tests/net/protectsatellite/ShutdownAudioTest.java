@@ -44,6 +44,10 @@ final class ShutdownAudioTest {
         TalkSession aac = session("aac", 16000, "udp://console-ip:5000");
         CoreTest.check(!aac.opus && aac.mime().equals("audio/mp4a-latm") && aac.encoderRates().length == 1, "AAC talkback format selection");
         CoreTest.check(Arrays.equals(aac.packet(new byte[] {1, 2, 3}, 1, 0, 2, 16000), Protocol.adts(new byte[] {1, 2, 3}, 16000, 1)), "Talkback AAC is ADTS/UDP, not RTP");
+        TalkSession aac22050 = session("aac", 22050, "udp://console-ip:5000");
+        CoreTest.check(Arrays.equals(aac22050.encoderRates(), new int[] {22050})
+            && Arrays.equals(aac22050.packet(new byte[] {1, 2, 3}, 1, 0, 2, 22050), Protocol.adts(new byte[] {1, 2, 3}, 22050, 1)),
+            "Common AAC 22050 talkback is accepted and framed as ADTS");
         TalkSession opus = session("opus", 24000, "rtp://console-ip:5000");
         CoreTest.check(opus.opus && Arrays.equals(opus.encoderRates(), new int[] {24000, 48000}), "Opus encoder can fall back to standard 48 kHz input");
         Protocol.Rtp rtp = new Protocol.Rtp(opus.packet(new byte[] {10, 11}, 65537, 20000, 123, 24000));

@@ -60,7 +60,9 @@ final class Talkback implements AutoCloseable {
                 String available = new MediaCodecList(MediaCodecList.REGULAR_CODECS).findEncoderForFormat(attempt);
                 if (available != null) { name = available; rate = candidate; format = attempt; break; }
             }
-            if (name == null) throw new IOException("This satellite has no encoder for the negotiated talkback codec and sampling rate");
+            if (name == null) throw new IOException(session.opus
+                ? "Doorbell uses Opus talkback; Android 10 or newer is required"
+                : "No AAC encoder for the doorbell's talkback format");
             encoder = MediaCodec.createByCodecName(name); encoder.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE); encoder.start(); encoderStarted = true;
             int minimum = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
             if (minimum <= 0) throw new IOException("Microphone does not support the negotiated sample rate");

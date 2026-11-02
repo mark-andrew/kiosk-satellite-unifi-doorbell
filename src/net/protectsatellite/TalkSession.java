@@ -17,7 +17,7 @@ final class TalkSession {
         if (!opus && !"aac".equals(codec)) throw new IOException("Talkback requires AAC/UDP or Opus/RTP; the negotiated codec is not supported");
         rate = session.optInt("samplingRate", 0);
         if (session.optInt("bitsPerSample", 16) != 16
-                || !(rate == 8000 || rate == 12000 || rate == 16000 || rate == 24000 || rate == 32000 || rate == 44100 || rate == 48000))
+                || !(rate == 8000 || rate == 12000 || rate == 16000 || rate == 22050 || rate == 24000 || rate == 32000 || rate == 44100 || rate == 48000))
             throw new IOException("Unsupported negotiated talkback sampling parameters");
         URI target;
         try { target = URI.create(session.optString("url", "")); }

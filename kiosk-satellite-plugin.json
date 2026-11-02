@@ -3,7 +3,7 @@
   "apiVersion": 1,
   "id": "protect-camera",
   "name": "UniFi Protect Doorbell",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "minAndroidSdk": 26,
   "entryClass": "net.protectsatellite.ProtectPlugin",
   "description": "Live UniFi Protect doorbell video, listening and two-way audio. Includes guided setup and optional Home Assistant door-lock control. No restreamer required.",
